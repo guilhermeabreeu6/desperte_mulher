@@ -1,0 +1,195 @@
+{
+  "page": 2,
+  "lastPage": 5,
+  "stepTitle": "Sobre o(a) Agressor(a)",
+  "questions": [
+    {
+      "title": "6. O(A) agressor(a) já teve algum destes comportamentos?",
+      "type": "multiple",
+      "answers": [
+        {
+          "title": "Disse algo parecido com a frase: \"se não for minha, não será de mais ninguém\"",
+          "activates": true
+        },
+        {
+          "title": "Perturbou, perseguiu ou vigiou você nos locais que frequenta",
+          "activates": true
+        },
+        {
+          "title": "Proibiu você de visitar familiares ou amigos",
+          "activates": true
+        },
+        {
+          "title": "Proibiu você de trabalhar ou estudar",
+          "activates": true
+        },
+        {
+          "title": "Fez telefonemas, enviou mensagens pelo celular ou e-mails de forma insistente",
+          "activates": true
+        },
+        {
+          "title": "Impediu você de ter acesso a dinheiro, conta bancária ou outros bens (como documentos pessoais, carro)",
+          "activates": true
+        },
+        {
+          "title": "Teve outros comportamentos de ciúme excessivo e de controle sobre você",
+          "activates": true
+        },
+        {
+          "title": "Nenhum dos comportamentos acima listados",
+          "activates": false
+        }
+      ],
+      "criteria": [
+        "casuistica",
+        "motivacao",
+        "historico",
+        "tendencia"
+      ]
+    },
+    {
+      "title": "7.a Você já registrou ocorrência policial ou formulou pedido de medida protetiva de urgência envolvendo esse(a) mesmo(a) agressor(a)?",
+      "type": "single",
+      "answers": [
+        {
+          "title": "Sim",
+          "activates": true
+        },
+        {
+          "title": "Não",
+          "activates": false
+        }
+      ],
+      "criteria": [
+        "exposicao",
+        "casuistica",
+        "historico",
+        "tendencia"
+      ]
+    },
+    {
+      "title": "7.b O(A) agressor(a) já descumpriu medida protetiva anteriormente?",
+      "type": "single",
+      "answers": [
+        {
+          "title": "Sim",
+          "activates": true
+        },
+        {
+          "title": "Não",
+          "activates": false
+        },
+        {
+          "title": "Não sei",
+          "activates": false
+        }
+      ],
+      "criteria": [
+        "casuistica",
+        "historico",
+        "tendencia"
+      ]
+    },
+    {
+      "title": "8. As agressões ou ameaças do(a) agressor(a) contra você se tornaram mais frequentes ou mais graves nos últimos meses?",
+      "type": "single",
+      "answers": [
+        {
+          "title": "Sim",
+          "activates": true
+        },
+        {
+          "title": "Não",
+          "activates": false
+        },
+        {
+          "title": "Não sei",
+          "activates": false
+        }
+      ],
+      "criteria": [
+        "casuistica",
+        "historico",
+        "tendencia"
+      ]
+    },
+    {
+      "title": "9. O(A) agressor(a) faz uso abusivo de álcool ou de drogas ou medicamentos?",
+      "type": "multiple",
+      "answers": [
+        {
+          "title": "Sim, de álcool",
+          "activates": true
+        },
+        {
+          "title": "Sim, de drogas",
+          "activates": true
+        },
+        {
+          "title": "Sim, de medicamentos",
+          "activates": true
+        },
+        {
+          "title": "Não",
+          "activates": false
+        },
+        {
+          "title": "Não sei",
+          "activates": false
+        }
+      ],
+      "criteria": [
+        "motivacao",
+        "tendencia"
+      ]
+    },
+    {
+      "title": "10. O(A) agressor(a) tem alguma doença mental comprovada por avaliação médica?",
+      "type": "single",
+      "answers": [
+        {
+          "title": "Sim e faz uso de medicação",
+          "activates": true
+        },
+        {
+          "title": "Sim e não faz uso de medicação",
+          "activates": true
+        },
+        {
+          "title": "Não",
+          "activates": false
+        },
+        {
+          "title": "Não sei",
+          "activates": false
+        }
+      ],
+      "criteria": [
+        "motivacao",
+        "tendencia"
+      ]
+    },
+    {
+      "title": "11. O(A) agressor(a) já tentou suicídio ou falou em suicidar-se?",
+      "type": "single",
+      "answers": [
+        {
+          "title": "Sim",
+          "activates": true
+        },
+        {
+          "title": "Não",
+          "activates": false
+        },
+        {
+          "title": "Não sei",
+          "activates": false
+        }
+      ],
+      "criteria": [
+        "motivacao",
+        "tendencia"
+      ]
+    }
+  ]
+}
