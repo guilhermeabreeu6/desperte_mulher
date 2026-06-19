@@ -1,0 +1,130 @@
+{
+  "page": 5,
+  "lastPage": 5,
+  "stepTitle": "Outras Informações Importantes",
+  "questions": [
+    {
+      "title": "22. Você possui alguma deficiência ou doença degenerativa que acarretam condição limitante ou de vulnerabilidade física ou mental?",
+      "type": "single",
+      "answers": [
+        {
+          "title": "Sim",
+          "activates": true
+        },
+        {
+          "title": "Não",
+          "activates": false
+        }
+      ],
+      "criteria": [
+        "atratibilidade"
+      ]
+    },
+    {
+      "title": "23. Com qual cor/raça você se identifica?",
+      "type": "single",
+      "answers": [
+        {
+          "title": "Branca",
+          "activates": false
+        },
+        {
+          "title": "Preta",
+          "activates": true
+        },
+        {
+          "title": "Parda",
+          "activates": false
+        },
+        {
+          "title": "Amarela/oriental",
+          "activates": false
+        },
+        {
+          "title": "Indígena",
+          "activates": false
+        }
+      ],
+      "criteria": [
+        "atratibilidade"
+      ]
+    },
+    {
+      "title": "24. Você considera que mora em bairro, comunidade, área rural ou local de risco de violência?",
+      "type": "single",
+      "answers": [
+        {
+          "title": "Sim",
+          "activates": true
+        },
+        {
+          "title": "Não",
+          "activates": false
+        },
+        {
+          "title": "Não sei",
+          "activates": false
+        }
+      ],
+      "criteria": [
+        "exposicao"
+      ]
+    },
+    {
+      "title": "25. Qual sua situação de moradia?",
+      "type": "single",
+      "answers": [
+        {
+          "title": "Própria",
+          "activates": false
+        },
+        {
+          "title": "Alugada",
+          "activates": true
+        },
+        {
+          "title": "Cedida ou “de favor”",
+          "activates": true
+        }
+      ],
+      "criteria": [
+        "exposicao"
+      ]
+    },
+    {
+      "title": "26. Você se considera dependente financeiramente do(a) agressor(a)?",
+      "type": "single",
+      "answers": [
+        {
+          "title": "Sim",
+          "activates": true
+        },
+        {
+          "title": "Não",
+          "activates": false
+        }
+      ],
+      "criteria": [
+        "exposicao",
+        "motivacao"
+      ]
+    },
+    {
+      "title": "27. Você quer e aceita abrigamento temporário?",
+      "type": "single",
+      "answers": [
+        {
+          "title": "Sim",
+          "activates": true
+        },
+        {
+          "title": "Não",
+          "activates": false
+        }
+      ],
+      "criteria": [
+        "exposicao"
+      ]
+    }
+  ]
+}

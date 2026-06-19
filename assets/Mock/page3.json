@@ -1,0 +1,181 @@
+{
+  "page": 3,
+  "lastPage": 5,
+  "stepTitle": "Comportamento e Filhos",
+  "questions": [
+    {
+      "title": "12. O(A) agressor(a) está com dificuldades financeiras, está desempregado ou tem dificuldade de se manter no emprego?",
+      "type": "single",
+      "answers": [
+        {
+          "title": "Sim",
+          "activates": true
+        },
+        {
+          "title": "Não",
+          "activates": false
+        },
+        {
+          "title": "Não sei",
+          "activates": false
+        }
+      ],
+      "criteria": [
+        "motivacao"
+      ]
+    },
+    {
+      "title": "13. O(A) agressor(a) já usou, ameaçou usar arma de fogo contra você ou tem fácil acesso a uma arma?",
+      "type": "single",
+      "answers": [
+        {
+          "title": "Sim, usou",
+          "activates": true
+        },
+        {
+          "title": "Sim, ameaçou usar",
+          "activates": true
+        },
+        {
+          "title": "Tem fácil acesso",
+          "activates": true
+        },
+        {
+          "title": "Não",
+          "activates": false
+        },
+        {
+          "title": "Não sei",
+          "activates": false
+        }
+      ],
+      "criteria": [
+        "casuistica",
+        "motivacao",
+        "historico",
+        "tendencia"
+      ]
+    },
+    {
+      "title": "14. O(A) agressor(a) já ameaçou ou agrediu seus filhos, outros familiares, amigos, colegas de trabalho, pessoas desconhecidas ou animais?",
+      "type": "multiple",
+      "answers": [
+        {
+          "title": "Sim, filhos",
+          "activates": true
+        },
+        {
+          "title": "Sim, outros familiares",
+          "activates": true
+        },
+        {
+          "title": "Sim, amigos",
+          "activates": true
+        },
+        {
+          "title": "Sim, colegas de trabalho",
+          "activates": true
+        },
+        {
+          "title": "Sim, outras pessoas",
+          "activates": true
+        },
+        {
+          "title": "Sim, animais",
+          "activates": true
+        },
+        {
+          "title": "Não",
+          "activates": false
+        },
+        {
+          "title": "Não sei",
+          "activates": false
+        }
+      ],
+      "criteria": [
+        "casuistica",
+        "historico",
+        "tendencia"
+      ]
+    },
+    {
+      "title": "15. Você se separou recentemente do(a) agressor(a), tentou ou manifestou intenção de se separar?",
+      "type": "single",
+      "answers": [
+        {
+          "title": "Sim",
+          "activates": true
+        },
+        {
+          "title": "Não",
+          "activates": false
+        }
+      ],
+      "criteria": [
+        "exposicao",
+        "motivacao"
+      ]
+    },
+    {
+      "title": "16.a Você tem filhos?",
+      "type": "single",
+      "answers": [
+        {
+          "title": "Sim, com o(a) agressor(a)",
+          "activates": true
+        },
+        {
+          "title": "Sim, de outro relacionamento",
+          "activates": true
+        },
+        {
+          "title": "Não",
+          "activates": false
+        }
+      ],
+      "criteria": [
+        "atratibilidade",
+        "motivacao"
+      ]
+    },
+    {
+      "title": "16.b Qual a faixa etária de seus filhos? Se tiver mais de um filho, pode assinalar mais de uma opção:",
+      "type": "multiple",
+      "answers": [
+        {
+          "title": "0 a 11 anos",
+          "activates": true
+        },
+        {
+          "title": "12 a 17 anos",
+          "activates": true
+        },
+        {
+          "title": "A partir de 18 anos",
+          "activates": false
+        }
+      ],
+      "criteria": [
+        "atratibilidade"
+      ]
+    },
+    {
+      "title": "16.c Algum de seus filhos é pessoa com deficiência?",
+      "type": "single",
+      "answers": [
+        {
+          "title": "Sim",
+          "activates": true
+        },
+        {
+          "title": "Não",
+          "activates": false
+        }
+      ],
+      "criteria": [
+        "atratibilidade"
+      ]
+    }
+  ]
+}

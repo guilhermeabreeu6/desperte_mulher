@@ -1,0 +1,105 @@
+{
+  "page": 4,
+  "lastPage": 5,
+  "stepTitle": "Filhos e Contexto Recente",
+  "questions": [
+    {
+      "title": "17. Estão vivendo algum conflito com relação à guarda dos filhos, visitas ou pagamento de pensão pelo agressor?",
+      "type": "single",
+      "answers": [
+        {
+          "title": "Sim",
+          "activates": true
+        },
+        {
+          "title": "Não",
+          "activates": false
+        },
+        {
+          "title": "Não sei",
+          "activates": false
+        }
+      ],
+      "criteria": [
+        "exposicao",
+        "motivacao",
+        "tendencia"
+      ]
+    },
+    {
+      "title": "18. Seu(s) filho(s) já presenciaram ato(s) de violência do(a) agressor(a) contra você?",
+      "type": "single",
+      "answers": [
+        {
+          "title": "Sim",
+          "activates": true
+        },
+        {
+          "title": "Não",
+          "activates": false
+        }
+      ],
+      "criteria": [
+        "casuistica",
+        "historico"
+      ]
+    },
+    {
+      "title": "19. Você sofreu algum tipo de violência durante a gravidez ou nos três meses posteriores ao parto?",
+      "type": "single",
+      "answers": [
+        {
+          "title": "Sim",
+          "activates": true
+        },
+        {
+          "title": "Não",
+          "activates": false
+        }
+      ],
+      "criteria": [
+        "atratibilidade",
+        "casuistica",
+        "historico"
+      ]
+    },
+    {
+      "title": "20. Você está grávida ou teve bebê nos últimos 18 meses?",
+      "type": "single",
+      "answers": [
+        {
+          "title": "Sim",
+          "activates": true
+        },
+        {
+          "title": "Não",
+          "activates": false
+        }
+      ],
+      "criteria": [
+        "atratibilidade"
+      ]
+    },
+    {
+      "title": "21. Se você está em um novo relacionamento, as ameaças ou as agressões físicas aumentaram em razão disso?",
+      "type": "single",
+      "answers": [
+        {
+          "title": "Sim",
+          "activates": true
+        },
+        {
+          "title": "Não",
+          "activates": false
+        }
+      ],
+      "criteria": [
+        "exposicao",
+        "casuistica",
+        "motivacao",
+        "historico",
+        "tendencia"
+      ]
+    }
+  ]
+}
