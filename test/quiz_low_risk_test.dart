@@ -1,20 +1,22 @@
-// Testa o fluxo do questionário respondendo "Não"/nada a todas as questões.
+﻿// Testa o fluxo do questionário respondendo "Não"/nada a todas as questões.
 // Resultado esperado pela Matriz de Risco AR PAX: Muito Baixo (20%).
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:troca_contexto/main.dart';
+import 'package:desperte_mulher/main.dart';
 
 void main() {
   testWidgets('respondendo Não/nada a tudo resulta em risco Muito Baixo (20%)', (
     tester,
   ) async {
-    await tester.pumpWidget(createMaterialApp());
+    await tester.pumpWidget(const App());
     await tester.pumpAndSettle();
 
-    expect(find.text('Login'), findsOneWidget);
+    expect(find.text('Desperte Mulher'), findsOneWidget);
 
+    await tester.enterText(find.byType(TextFormField).first, 'teste@teste.com');
+    await tester.enterText(find.byType(TextFormField).last, 'senha123');
     await tester.tap(find.text('Entrar'));
     await tester.pumpAndSettle();
 

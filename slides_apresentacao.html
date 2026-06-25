@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desperte Mulher — Apresentação</title>
+<style>
+  :root {
+    --purple: #7B1FA2;
+    --purple-light: #9C27B0;
+    --purple-dark: #4A0072;
+    --pink: #E91E63;
+    --pink-light: #F8BBD9;
+    --bg: #F8F0FB;
+    --white: #FFFFFF;
+    --gray: #666;
+    --red-emergency: #C62828;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: #1a1a2e;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+
+  .slideshow {
+    width: 960px;
+    height: 540px;
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 32px 64px rgba(0,0,0,0.5);
+  }
+
+  .slide {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0; left: 0;
+    animation: fadeIn 0.35s ease;
+  }
+
+  .slide.active { display: flex; }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ── NAV ── */
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  .nav button {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    padding: 8px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .nav button:hover { background: rgba(255,255,255,0.2); }
+  .nav button:disabled { opacity: 0.3; cursor: default; }
+  .counter { color: rgba(255,255,255,0.5); font-size: 14px; min-width: 60px; text-align: center; }
+
+  /* ── LAYOUT BASE ── */
+  .full-center {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 48px;
+  }
+  .split {
+    flex-direction: row;
+  }
+  .left-panel {
+    width: 42%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 48px 36px;
+  }
+  .right-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 48px 40px;
+    background: rgba(255,255,255,0.05);
+  }
+
+  /* ── TYPOGRAPHY ── */
+  .tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+  .slide-title {
+    font-size: 42px;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+  .slide-subtitle {
+    font-size: 17px;
+    opacity: 0.75;
+    line-height: 1.5;
+  }
+  .section-title {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-bottom: 8px;
+  }
+  .h2 { font-size: 30px; font-weight: 700; line-height: 1.2; margin-bottom: 8px; }
+  .h3 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+  .body { font-size: 15px; line-height: 1.6; opacity: 0.85; }
+
+  /* ── COMPONENTS ── */
+  .icon-box {
+    width: 80px; height: 80px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 36px;
+    margin-bottom: 24px;
+  }
+
+  .pill-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .pill {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    font-size: 13px;
+    padding: 6px 14px;
+    border-radius: 20px;
+  }
+
+  .card {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 12px;
+  }
+  .card-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .card-body { font-size: 13px; opacity: 0.75; line-height: 1.5; }
+
+  .stat-row { display: flex; gap: 20px; margin-top: 16px; }
+  .stat {
+    flex: 1;
+    background: rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 20px 16px;
+    text-align: center;
+  }
+  .stat-num { font-size: 36px; font-weight: 800; }
+  .stat-label { font-size: 12px; opacity: 0.7; margin-top: 4px; line-height: 1.4; }
+
+  .flow-row {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-top: 20px;
+  }
+  .flow-step {
+    flex: 1;
+    background: rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 16px 12px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    position: relative;
+  }
+  .flow-step .step-icon { font-size: 24px; display: block; margin-bottom: 6px; }
+  .flow-arrow {
+    color: rgba(255,255,255,0.4);
+    font-size: 20px;
+    padding: 0 4px;
+    flex-shrink: 0;
+  }
+
+  .check-list { list-style: none; margin-top: 12px; }
+  .check-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    line-height: 1.5;
+    opacity: 0.9;
+  }
+  .check-list li::before { content: "✓"; color: #A5D6A7; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .x-list li::before { content: "✗"; color: #EF9A9A; }
+
+  .code-block {
+    background: rgba(0,0,0,0.3);
+    border-radius: 10px;
+    padding: 16px;
+    font-family: 'Cascadia Code', 'Fira Code', monospace;
+    font-size: 12px;
+    line-height: 1.6;
+    color: #E0E0E0;
+    margin-top: 12px;
+    overflow: hidden;
+  }
+  .code-block .kw { color: #CE93D8; }
+  .code-block .fn { color: #80DEEA; }
+  .code-block .str { color: #A5D6A7; }
+  .code-block .cm { color: #888; }
+
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .badge-green { background: #1B5E20; color: #A5D6A7; }
+  .badge-red { background: #B71C1C; color: #FFCDD2; }
+  .badge-yellow { background: #E65100; color: #FFE0B2; }
+
+  .risk-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin-top: 16px;
+  }
+  .risk-card {
+    border-radius: 10px;
+    padding: 12px 8px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  /* ── SLIDE THEMES ── */
+  /* S1 - Capa */
+  .s1 { background: linear-gradient(135deg, var(--purple-dark) 0%, var(--purple) 60%, var(--pink) 100%); color: white; }
+  /* S2 - Problema */
+  .s2 { background: linear-gradient(135deg, #1A237E 0%, #283593 100%); color: white; }
+  /* S3 - Solução */
+  .s3 { background: linear-gradient(135deg, #4A0072 0%, var(--purple) 100%); color: white; }
+  /* S4 - Metodologia */
+  .s4 { background: linear-gradient(135deg, #311B92 0%, #512DA8 100%); color: white; }
+  /* S5 - Fluxo */
+  .s5 { background: linear-gradient(135deg, var(--purple-dark) 0%, #6A1B9A 100%); color: white; }
+  /* S6 - Arquitetura */
+  .s6 { background: linear-gradient(135deg, #004D40 0%, #00695C 100%); color: white; }
+  /* S7 - Código */
+  .s7 { background: linear-gradient(135deg, #212121 0%, #37474F 100%); color: white; }
+  /* S8 - Layout */
+  .s8 { background: linear-gradient(135deg, #880E4F 0%, var(--pink) 100%); color: white; }
+  /* S9 - Testes */
+  .s9 { background: linear-gradient(135deg, #1B5E20 0%, #2E7D32 100%); color: white; }
+  /* S10 - Conclusão */
+  .s10 { background: linear-gradient(135deg, var(--purple-dark) 0%, var(--purple) 60%, var(--pink) 100%); color: white; }
+
+  .divider { width: 48px; height: 3px; background: rgba(255,255,255,0.4); border-radius: 2px; margin: 16px 0; }
+
+  .team-chips { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; justify-content: center; }
+  .team-chip {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 8px 18px;
+    border-radius: 30px;
+    font-size: 14px;
+  }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 12px; }
+
+  .matrix-wrap { margin-top: 16px; }
+  .matrix-row { display: flex; gap: 4px; margin-bottom: 4px; align-items: center; }
+  .matrix-cell {
+    width: 64px; height: 36px;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 700;
+  }
+  .matrix-label { font-size: 10px; opacity: 0.6; width: 72px; text-align: right; padding-right: 8px; }
+  .cell-mb { background: #1B5E20; }
+  .cell-b  { background: #2E7D32; }
+  .cell-m  { background: #F9A825; color: #000; }
+  .cell-a  { background: #E65100; }
+  .cell-x  { background: #B71C1C; }
+</style>
+</head>
+<body>
+
+<div class="slideshow">
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- SLIDE 1 — CAPA                                -->
+  <!-- ══════════════════════════════════════════════ -->
+  <div class="slide s1 full-center active">
+    <div class="icon-box" style="margin: 0 auto 24px; background: rgba(255,255,255,0.2);">❤️</div>
+    <div class="slide-title">Desperte Mulher</div>
+    <div class="divider" style="margin: 16px auto;"></div>
+    <div class="slide-subtitle">
+      App móvel de avaliação de risco de violência doméstica<br>
+      Metodologia AR PAX / FRIDA · Flutter & Dart
+    </div>
+    <div class="team-chips">
+      <span class="team-chip">📱 Aplicativo Flutter</span>
+      <span class="team-chip">🔬 Metodologia Científica</span>
+      <span class="team-chip">🛡️ Proteção à Mulher</span>
+    </div>
+    <div style="margin-top: 32px; opacity: 0.5; font-size: 13px;">Junho 2026 · Trabalho de Disciplina</div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- SLIDE 2 — O PROBLEMA                         -->
+  <!-- ══════════════════════════════════════════════ -->
+  <div class="slide s2 split">
+    <div class="left-panel">
+      <span class="tag">O Problema</span>
+      <div class="h2">Violência contra a mulher no Brasil</div>
+      <div class="divider"></div>
+      <div class="body">
+        Milhões de mulheres vivem em situação de risco sem saber avaliar
+        a gravidade ou quais passos tomar. A falta de acesso a ferramentas
+        especializadas agrava a vulnerabilidade.
+      </div>
+    </div>
+    <div class="right-panel">
+      <div class="stat-row">
+        <div class="stat">
+          <div class="stat-num" style="color: #EF9A9A;">1,4<span style="font-size:20px">mi</span></div>
+          <div class="stat-label">registros de violência doméstica no Brasil em 2023</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num" style="color: #EF9A9A;">66%</div>
+          <div class="stat-label">das vítimas não buscam ajuda especializada</div>
+        </div>
+      </div>
+      <div class="card" style="margin-top: 20px;">
+        <div class="card-title">⚠️ Desafio identificado</div>
+        <div class="card-body">
+          Não existe ferramenta mobile acessível que aplique a metodologia
+          científica AR PAX/FRIDA para avaliar o risco de forma estruturada
+          e orientar a vítima.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- SLIDE 3 — A SOLUÇÃO                          -->
+  <!-- ══════════════════════════════════════════════ -->
+  <div class="slide s3 split">
+    <div class="left-panel">
+      <span class="tag">A Solução</span>
+      <div class="h2">App de Avaliação de Risco</div>
+      <div class="divider"></div>
+      <div class="body">
+        Um aplicativo móvel que implementa fielmente a metodologia
+        AR PAX/FRIDA, utilizada pelo programa <strong>Desperte Mulher</strong>,
+        guiando a usuária por um questionário estruturado e gerando
+        uma classificação de risco personalizada.
+      </div>
+      <div class="pill-list">
+        <span class="pill">Flutter</span>
+        <span class="pill">Dart 3.11</span>
+        <span class="pill">Android & iOS</span>
+        <span class="pill">Offline</span>
+        <span class="pill">Código aberto</span>
+      </div>
+    </div>
+    <div class="right-panel">
+      <ul class="check-list">
+        <li>Questionário de 5 etapas com perguntas validadas cientificamente</li>
+        <li>Algoritmo fiel à planilha oficial AR PAX/FRIDA (pesos e matriz de risco)</li>
+        <li>5 níveis de risco: Muito Baixo → Extremo</li>
+        <li>Recomendações personalizadas por nível de risco</li>
+        <li>Destaque automático para emergências (180 / 190) em risco Alto e Extremo</li>
+        <li>Funciona 100% offline — sem envio de dados a terceiros</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- SLIDE 4 — METODOLOGIA                        -->
+  <!-- ══════════════════════════════════════════════ -->
+  <div class="slide s4 split">
+    <div class="left-panel">
+      <span class="tag">Metodologia AR PAX/FRIDA</span>
+      <div class="h2">Como o risco é calculado</div>
+      <div class="divider"></div>
+      <div class="body">
+        O algoritmo replica exatamente as fórmulas da <em>Planilha Ajustada.xlsm</em>
+        usada pelo Desperte Mulher, com 6 critérios divididos em dois eixos.
+      </div>
+      <div class="two-col" style="margin-top: 16px;">
+        <div class="card">
+          <div class="card-title" style="color:#CE93D8;">Vulnerabilidade</div>
+          <div class="card-body">Atratibilidade · Exposição · Casuística</div>
+        </div>
+        <div class="card">
+          <div class="card-title" style="color:#80DEEA;">Ameaça</div>
+          <div class="card-body">Motivação · Histórico · Tendência</div>
+        </div>
+      </div>
+    </div>
+    <div class="right-panel">
+      <div class="section-title">Matriz de Risco (Vulnerabilidade × Ameaça)</div>
+      <div class="matrix-wrap">
+        <div style="display:flex; gap:4px; margin-bottom:6px; padding-left:80px;">
+          <div style="width:64px;text-align:center;font-size:10px;opacity:.5;">Insig.</div>
+          <div style="width:64px;text-align:center;font-size:10px;opacity:.5;">Pequena</div>
+          <div style="width:64px;text-align:center;font-size:10px;opacity:.5;">Moder.</div>
+          <div style="width:64px;text-align:center;font-size:10px;opacity:.5;">Signif.</div>
+          <div style="width:64px;text-align:center;font-size:10px;opacity:.5;">Extrema</div>
+        </div>
+        <div class="matrix-row"><div class="matrix-label">Muito Baixa</div><div class="matrix-cell cell-mb">M.Baixo</div><div class="matrix-cell cell-mb">M.Baixo</div><div class="matrix-cell cell-b">Baixo</div><div class="matrix-cell cell-a">Alto</div><div class="matrix-cell cell-a">Alto</div></div>
+        <div class="matrix-row"><div class="matrix-label">Baixa</div><div class="matrix-cell cell-mb">M.Baixo</div><div class="matrix-cell cell-b">Baixo</div><div class="matrix-cell cell-m">Moder.</div><div class="matrix-cell cell-a">Alto</div><div class="matrix-cell cell-a">Alto</div></div>
+        <div class="matrix-row"><div class="matrix-label">Média</div><div class="matrix-cell cell-b">Baixo</div><div class="matrix-cell cell-b">Baixo</div><div class="matrix-cell cell-m">Moder.</div><div class="matrix-cell cell-x">Extremo</div><div class="matrix-cell cell-x">Extremo</div></div>
+        <div class="matrix-row"><div class="matrix-label">Alta</div><div class="matrix-cell cell-b">Baixo</div><div class="matrix-cell cell-m">Moder.</div><div class="matrix-cell cell-a">Alto</div><div class="matrix-cell cell-x">Extremo</div><div class="matrix-cell cell-x">Extremo</div></div>
+        <div class="matrix-row"><div class="matrix-label">Muito Alta</div><div class="matrix-cell cell-m">Moder.</div><div class="matrix-cell cell-m">Moder.</div><div class="matrix-cell cell-a">Alto</div><div class="matrix-cell cell-x">Extremo</div><div class="matrix-cell cell-x">Extremo</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- SLIDE 5 — FLUXO DO USUÁRIO                   -->
+  <!-- ══════════════════════════════════════════════ -->
+  <div class="slide s5 full-center">
+    <span class="tag">Fluxo do Usuário</span>
+    <div class="h2" style="font-size:28px;">Jornada completa no app</div>
+    <div class="flow-row" style="margin-top: 28px; width: 100%;">
+      <div class="flow-step">
+        <span class="step-icon">🔐</span>
+        Login
+        <div style="font-size:11px;opacity:.6;margin-top:4px;font-weight:400;">Validação<br>de e-mail e senha</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <span class="step-icon">ℹ️</span>
+        Aviso
+        <div style="font-size:11px;opacity:.6;margin-top:4px;font-weight:400;">Orientação<br>e privacidade</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step" style="background: rgba(255,255,255,0.18);">
+        <span class="step-icon">📋</span>
+        Quiz 5 Etapas
+        <div style="font-size:11px;opacity:.6;margin-top:4px;font-weight:400;">Perguntas<br>validadas</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <span class="step-icon">📊</span>
+        Cálculo AR PAX
+        <div style="font-size:11px;opacity:.6;margin-top:4px;font-weight:400;">Algoritmo<br>fiel à planilha</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step" style="background: rgba(233,30,99,0.25);">
+        <span class="step-icon">🛡️</span>
+        Resultado
+        <div style="font-size:11px;opacity:.6;margin-top:4px;font-weight:400;">Nível de risco<br>+ recomendação</div>
+      </div>
+    </div>
+    <div class="two-col" style="margin-top: 24px; width: 100%; text-align: left;">
+      <div class="card">
+        <div class="card-title">📱 Questões simples e acessíveis</div>
+        <div class="card-body">Escolha única ou múltipla. Estado preservado ao navegar para etapas anteriores.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">🚨 Emergência em destaque</div>
+        <div class="card-body">Para risco Alto e Extremo, o app exibe banner de emergência com 180 e 190.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- SLIDE 6 — ARQUITETURA TÉCNICA                -->
+  <!-- ══════════════════════════════════════════════ -->
+  <div class="slide s6 split">
+    <div class="left-panel">
+      <span class="tag">Arquitetura Técnica</span>
+      <div class="h2">Estrutura do Projeto</div>
+      <div class="divider"></div>
+      <div class="code-block">
+<span class="cm">lib/</span>
+├── <span class="kw">main.dart</span>        <span class="cm">← Tema global</span>
+├── <span class="fn">common/</span>
+│   ├── app_routes.dart
+│   └── risk_calculator.dart  <span class="cm">← Algoritmo</span>
+├── <span class="fn">Models/</span>
+│   ├── answer.dart
+│   ├── criterion.dart
+│   ├── question.dart
+│   ├── quiz_page.dart
+│   └── risk_result.dart
+├── <span class="fn">login/</span>   <span class="fn">profile/</span>
+└── <span class="fn">Screens/</span>
+    ├── quiz/        <span class="cm">← 5 etapas + cache</span>
+    ├── registration/
+    └── result/
+<span class="cm">assets/Mock/</span>
+    page1..page5.json  <span class="cm">← Questões</span>
+      </div>
+    </div>
+    <div class="right-panel">
+      <div class="section-title">Decisões técnicas</div>
+      <ul class="check-list">
+        <li><strong>Flutter 3.41 + Dart 3.11</strong> — multiplataforma com uma única base de código</li>
+        <li><strong>JSON em assets</strong> — questões carregadas offline, sem dependência de API</li>
+        <li><strong>Cache por página</strong> — estado do quiz preservado ao navegar entre etapas</li>
+        <li><strong>ThemeData centralizado</strong> — identidade visual consistente em todas as telas</li>
+        <li><strong>GlobalKey + Form</strong> — validação robusta no login sem re-renders desnecessários</li>
+        <li><strong>3 testes automatizados</strong> — validam o algoritmo de risco contra resultados esperados</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- SLIDE 7 — QUALIDADE DO CÓDIGO                -->
+  <!-- ══════════════════════════════════════════════ -->
+  <div class="slide s7 split">
+    <div class="left-panel">
+      <span class="tag">Qualidade do Código</span>
+      <div class="h2">Problemas identificados<br>e corrigidos</div>
+      <div class="divider"></div>
+      <ul class="check-list x-list" style="margin-bottom: 16px;">
+        <li><code style="background:rgba(255,255,255,.1);padding:1px 6px;border-radius:4px;">late BuildContext</code> em LoginPage e ProfilePage — crash potencial</li>
+        <li>Login sem nenhuma validação de formulário</li>
+        <li>Tela de cadastro sem feedback ao usuário</li>
+      </ul>
+      <div style="opacity:.5;font-size:12px;margin-bottom:8px;">→ APÓS REFATORAÇÃO</div>
+      <ul class="check-list">
+        <li>Contexto usado diretamente do <code style="background:rgba(255,255,255,.1);padding:1px 6px;border-radius:4px;">build()</code></li>
+        <li>Validação de e-mail e senha mínima de 6 chars</li>
+        <li>SnackBar de sucesso no cadastro</li>
+      </ul>
+    </div>
+    <div class="right-panel">
+      <div class="section-title">Antes <span class="badge badge-red">BUG</span></div>
+      <div class="code-block">
+<span class="kw">class</span> <span class="fn">LoginPage</span> <span class="kw">extends</span> StatelessWidget {
+  <span class="kw">late</span> BuildContext pageContext; <span class="cm">// ← ANTI-PATTERN</span>
+
+  <span class="kw">void</span> <span class="fn">_onLoginPressed</span>() {
+    Navigator.pushNamed(pageContext, ...); <span class="cm">// pode crashar</span>
+  }
+}
+      </div>
+      <div class="section-title" style="margin-top:16px;">Depois <span class="badge badge-green">CORRIGIDO</span></div>
+      <div class="code-block">
+<span class="kw">class</span> <span class="fn">LoginPage</span> <span class="kw">extends</span> StatefulWidget {
+  <span class="kw">void</span> <span class="fn">_onLoginPressed</span>() {
+    <span class="kw">if</span> (_formKey.currentState!.<span class="fn">validate</span>()) {
+      Navigator.<span class="fn">pushNamed</span>(context, ...); <span class="cm">// ← seguro</span>
+    }
+  }
+}
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- SLIDE 8 — LAYOUT PROPOSTO                    -->
+  <!-- ══════════════════════════════════════════════ -->
+  <div class="slide s8 split">
+    <div class="left-panel">
+      <span class="tag">Nossa Proposta de Layout</span>
+      <div class="h2">Por que escolher<br>nosso layout?</div>
+      <div class="divider"></div>
+      <div class="body">
+        O layout original usa Material Design padrão sem identidade visual.
+        Nosso layout foi projetado com foco no contexto de uso: uma mulher
+        em situação de vulnerabilidade merece uma interface acolhedora e clara.
+      </div>
+    </div>
+    <div class="right-panel">
+      <div class="two-col">
+        <div>
+          <div class="section-title" style="color:#EF9A9A;">Layout original</div>
+          <ul class="check-list x-list">
+            <li>Sem identidade visual</li>
+            <li>AppBar genérica "Login"</li>
+            <li>Sem validação visível</li>
+            <li>Cores padrão do Material</li>
+            <li>Emergência sem destaque</li>
+          </ul>
+        </div>
+        <div>
+          <div class="section-title" style="color:#A5D6A7;">Nosso layout</div>
+          <ul class="check-list">
+            <li>Logo + nome do app</li>
+            <li>Paleta roxa coerente com o tema</li>
+            <li>Validação com mensagens claras</li>
+            <li>Tema global centralizado</li>
+            <li>Banner vermelho de emergência</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="margin-top: 16px; border-color: rgba(233,30,99,0.4);">
+        <div class="card-title">🎯 Argumento central</div>
+        <div class="card-body">
+          Design é parte da solução. Para uma mulher em risco, uma interface clara
+          e empática pode ser a diferença entre pedir ajuda ou não.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- SLIDE 9 — TESTES                             -->
+  <!-- ══════════════════════════════════════════════ -->
+  <div class="slide s9 split">
+    <div class="left-panel">
+      <span class="tag">Testes Automatizados</span>
+      <div class="h2">3 testes · 100% passando</div>
+      <div class="divider"></div>
+      <div class="body">
+        Os testes validam o algoritmo de risco contra resultados esperados,
+        garantindo que nenhuma mudança de layout quebre a lógica de negócio.
+      </div>
+      <div class="code-block" style="margin-top: 16px;">
+$ flutter test
+<span class="str">+1: quiz_low_risk_test — Muito Baixo (20%)</span>
+<span class="str">+2: quiz_high_risk_test — Extremo (100%)</span>
+<span class="str">+3: quiz_back_button — estado preservado</span>
+<span class="kw">All tests passed!</span>
+      </div>
+    </div>
+    <div class="right-panel">
+      <div class="section-title">O que cada teste valida</div>
+      <div class="card">
+        <div class="card-title">🧪 quiz_low_risk_test</div>
+        <div class="card-body">Responder "Não" a tudo → risco Muito Baixo (20%). Valida o limite inferior da matriz.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">🧪 quiz_high_risk_test</div>
+        <div class="card-body">Resposta mais grave em tudo → risco Extremo (100%). Validado por simulação independente em Python.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">🧪 quiz_back_button_test</div>
+        <div class="card-body">Navegar para etapa anterior e avançar preserva as respostas já selecionadas.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- SLIDE 10 — CONCLUSÃO                         -->
+  <!-- ══════════════════════════════════════════════ -->
+  <div class="slide s10 full-center">
+    <div class="icon-box" style="margin: 0 auto 24px; background: rgba(255,255,255,0.2); font-size: 44px;">🛡️</div>
+    <div class="slide-title">Entregamos mais do que foi pedido</div>
+    <div class="divider" style="margin: 16px auto;"></div>
+    <div class="slide-subtitle" style="max-width: 620px; margin: 0 auto;">
+      Implementamos a metodologia científica AR PAX/FRIDA com fidelidade,
+      corrigimos falhas de código, criamos identidade visual coerente
+      e mantemos 3 testes automatizados passando.
+    </div>
+    <div class="stat-row" style="margin-top: 32px; max-width: 640px;">
+      <div class="stat">
+        <div class="stat-num">5</div>
+        <div class="stat-label">telas funcionais</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">6</div>
+        <div class="stat-label">critérios AR PAX implementados</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">3</div>
+        <div class="stat-label">testes passando</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">0</div>
+        <div class="stat-label">erros de compilação</div>
+      </div>
+    </div>
+    <div style="margin-top: 36px; opacity: 0.5; font-size: 13px;">← seta para navegar · F para tela cheia</div>
+  </div>
+
+</div><!-- /.slideshow -->
+
+<!-- NAV -->
+<div class="nav">
+  <button id="btnPrev" onclick="changeSlide(-1)" disabled>← Anterior</button>
+  <span class="counter" id="counter">1 / 10</span>
+  <button id="btnNext" onclick="changeSlide(1)">Próximo →</button>
+</div>
+
+<script>
+  let current = 0;
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+
+  function changeSlide(dir) {
+    slides[current].classList.remove('active');
+    current = Math.max(0, Math.min(total - 1, current + dir));
+    slides[current].classList.add('active');
+    document.getElementById('counter').textContent = (current + 1) + ' / ' + total;
+    document.getElementById('btnPrev').disabled = current === 0;
+    document.getElementById('btnNext').disabled = current === total - 1;
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') changeSlide(1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')                    changeSlide(-1);
+    if (e.key === 'f' || e.key === 'F') {
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+    }
+  });
+</script>
+</body>
+</html>
