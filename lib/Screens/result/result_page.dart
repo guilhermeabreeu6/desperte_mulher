@@ -20,13 +20,23 @@ class ResultPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final result = ModalRoute.of(context)!.settings.arguments as RiskResult;
+    final args = ModalRoute.of(context)!.settings.arguments;
+    final RiskResult result;
+    String? name;
+    if (args is RiskResult) {
+      result = args;
+    } else {
+      final map = args as Map<String, dynamic>;
+      result = map['result'] as RiskResult;
+      name = map['name'] as String?;
+    }
+
     final color = _colorFor(result.risco);
     final cs = Theme.of(context).colorScheme;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Resultado da Avaliação'),
+        title: Text(name != null ? 'Resultado de $name' : 'Resultado da Avaliação'),
         centerTitle: true,
         actions: const [AppBarActions()],
       ),

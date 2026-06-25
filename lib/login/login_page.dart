@@ -2,61 +2,31 @@ import 'package:flutter/material.dart';
 import '../common/app_routes.dart';
 import '../common/app_bar_actions.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
-
-  @override
-  State<LoginPage> createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
-  final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  bool _obscurePassword = true;
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
-
-  void _onLoginPressed() {
-    if (_formKey.currentState!.validate()) {
-      Navigator.pushNamed(context, AppRoutes.quizPage);
-    }
-  }
-
-  void _openRegistrationPage() {
-    Navigator.pushNamed(context, AppRoutes.registerPage);
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Column(
         children: [
-          _buildGradientHeader(),
+          _buildGradientHeader(context),
           Expanded(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(24),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    const SizedBox(height: 28),
-                    _buildEmailField(),
-                    const SizedBox(height: 16),
-                    _buildPasswordField(),
-                    const SizedBox(height: 28),
-                    _buildLoginButton(),
-                    const SizedBox(height: 20),
-                    _buildRegisterLink(),
-                  ],
-                ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const Spacer(),
+                  _buildDescription(context),
+                  const SizedBox(height: 20),
+                  _buildPrivacyBadge(context),
+                  const Spacer(),
+                  _buildAnonymousButton(context),
+                  const SizedBox(height: 12),
+                  _buildIdentifiedButton(context),
+                  const SizedBox(height: 32),
+                ],
               ),
             ),
           ),
@@ -65,7 +35,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _buildGradientHeader() {
+  Widget _buildGradientHeader(BuildContext context) {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.fromLTRB(
@@ -142,69 +112,178 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _buildEmailField() {
-    return TextFormField(
-      controller: _emailController,
-      keyboardType: TextInputType.emailAddress,
-      decoration: const InputDecoration(
-        labelText: 'E-mail',
-        prefixIcon: Icon(Icons.email_outlined),
+  Widget _buildDescription(BuildContext context) {
+    return Text(
+      'Responda um questionário de 5 etapas e descubra seu nível de risco '
+      'de violência doméstica com base na metodologia AR PAX/FRIDA.',
+      style: TextStyle(
+        fontSize: 16,
+        height: 1.6,
+        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8),
       ),
-      validator: (value) {
-        if (value == null || value.trim().isEmpty) return 'Informe seu e-mail';
-        if (!value.contains('@') || !value.contains('.')) return 'E-mail inválido';
-        return null;
-      },
+      textAlign: TextAlign.center,
     );
   }
 
-  Widget _buildPasswordField() {
-    return TextFormField(
-      controller: _passwordController,
-      obscureText: _obscurePassword,
-      decoration: InputDecoration(
-        labelText: 'Senha',
-        prefixIcon: const Icon(Icons.lock_outlined),
-        suffixIcon: IconButton(
-          icon: Icon(_obscurePassword ? Icons.visibility_off : Icons.visibility),
-          onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
+  Widget _buildPrivacyBadge(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      decoration: BoxDecoration(
+        color: const Color(0xFF7B1FA2).withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: const Color(0xFF7B1FA2).withValues(alpha: 0.2),
         ),
       ),
-      validator: (value) {
-        if (value == null || value.isEmpty) return 'Informe sua senha';
-        if (value.length < 6) return 'A senha deve ter ao menos 6 caracteres';
-        return null;
-      },
-    );
-  }
-
-  Widget _buildLoginButton() {
-    return SizedBox(
-      height: 52,
-      child: ElevatedButton(
-        onPressed: _onLoginPressed,
-        child: const Text('Entrar', style: TextStyle(fontSize: 16)),
-      ),
-    );
-  }
-
-  Widget _buildRegisterLink() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Text('Não tem conta? ', style: TextStyle(color: Colors.grey)),
-        GestureDetector(
-          onTap: _openRegistrationPage,
-          child: const Text(
-            'Criar conta',
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(Icons.lock_outline, color: Color(0xFF7B1FA2), size: 16),
+          const SizedBox(width: 8),
+          Text(
+            'Nenhum dado é armazenado ou enviado',
             style: TextStyle(
-              color: Color(0xFF7B1FA2),
-              fontWeight: FontWeight.bold,
-              decoration: TextDecoration.underline,
+              fontSize: 13,
+              color: cs.onSurface.withValues(alpha: 0.7),
             ),
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAnonymousButton(BuildContext context) {
+    return SizedBox(
+      height: 52,
+      child: ElevatedButton.icon(
+        onPressed: () =>
+            Navigator.pushNamed(context, AppRoutes.quizPage),
+        icon: const Icon(Icons.person_off_outlined),
+        label: const Text(
+          'Iniciar questionário anonimamente',
+          style: TextStyle(fontSize: 15),
         ),
-      ],
+      ),
+    );
+  }
+
+  Widget _buildIdentifiedButton(BuildContext context) {
+    return SizedBox(
+      height: 52,
+      child: OutlinedButton.icon(
+        onPressed: () => _showNameSheet(context),
+        icon: const Icon(Icons.person_outline),
+        label: const Text(
+          'Iniciar questionário se identificando',
+          style: TextStyle(fontSize: 15),
+        ),
+      ),
+    );
+  }
+
+  void _showNameSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (sheetContext) => _NameSheet(
+        onConfirm: (name) {
+          Navigator.pop(sheetContext);
+          Navigator.pushNamed(
+            context,
+            AppRoutes.quizPage,
+            arguments: name,
+          );
+        },
+        onSkip: () {
+          Navigator.pop(sheetContext);
+          Navigator.pushNamed(context, AppRoutes.quizPage);
+        },
+      ),
+    );
+  }
+}
+
+class _NameSheet extends StatefulWidget {
+  final ValueChanged<String> onConfirm;
+  final VoidCallback onSkip;
+
+  const _NameSheet({required this.onConfirm, required this.onSkip});
+
+  @override
+  State<_NameSheet> createState() => _NameSheetState();
+}
+
+class _NameSheetState extends State<_NameSheet> {
+  final _controller = TextEditingController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _confirm() {
+    final name = _controller.text.trim();
+    if (name.isNotEmpty) {
+      widget.onConfirm(name);
+    } else {
+      widget.onSkip();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(
+        24,
+        24,
+        24,
+        MediaQuery.of(context).viewInsets.bottom + 24,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const Text(
+            'Como podemos te chamar?',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            'Apenas o primeiro nome — usado só para personalizar o resultado. '
+            'Nada é salvo.',
+            style: TextStyle(fontSize: 13, color: Colors.grey.shade600),
+          ),
+          const SizedBox(height: 20),
+          TextField(
+            controller: _controller,
+            autofocus: true,
+            textCapitalization: TextCapitalization.words,
+            decoration: const InputDecoration(
+              labelText: 'Seu nome',
+              prefixIcon: Icon(Icons.person_outline),
+            ),
+            onSubmitted: (_) => _confirm(),
+          ),
+          const SizedBox(height: 20),
+          SizedBox(
+            height: 52,
+            child: ElevatedButton(
+              onPressed: _confirm,
+              child: const Text('Continuar', style: TextStyle(fontSize: 16)),
+            ),
+          ),
+          const SizedBox(height: 4),
+          TextButton(
+            onPressed: widget.onSkip,
+            child: const Text('Continuar sem me identificar'),
+          ),
+        ],
+      ),
     );
   }
 }

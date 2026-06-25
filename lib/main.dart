@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:desperte_mulher/login/login_page.dart';
 import 'package:desperte_mulher/profile/profile_page.dart';
 import 'Screens/quiz/quiz_page.dart';
-import 'Screens/registration/register_page.dart';
 import 'Screens/result/result_page.dart';
 import 'common/app_routes.dart';
 import 'common/theme_notifier.dart';
@@ -30,7 +29,6 @@ class App extends StatelessWidget {
         routes: {
           AppRoutes.loginPage: (_) => const LoginPage(),
           AppRoutes.profilePage: (_) => const ProfilePage(),
-          AppRoutes.registerPage: (_) => const RegisterPage(),
           AppRoutes.quizPage: (_) => const QuizPage(),
           AppRoutes.resultPage: (_) => const ResultPage(),
         },

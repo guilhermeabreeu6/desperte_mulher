@@ -20,6 +20,7 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   final QuizServer _server = QuizServer();
 
+  String? _name;
   bool _showIntro = true;
   bool _isLoading = false;
   int _currentPage = 1;
@@ -29,6 +30,12 @@ class _QuizPageState extends State<QuizPage> {
   final Map<int, List<Set<Answer>>> _pageSelections = {};
 
   bool get _isFirstPage => _currentPage == 1;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _name ??= ModalRoute.of(context)?.settings.arguments as String?;
+  }
   bool get _isLastPage => _currentPage == _lastPage;
 
   Future<void> _startQuiz() async {
@@ -100,7 +107,11 @@ class _QuizPageState extends State<QuizPage> {
 
   void _showResult() {
     final result = RiskCalculator.calculate(_computeRawTotals());
-    Navigator.pushNamed(context, AppRoutes.resultPage, arguments: result);
+    Navigator.pushNamed(
+      context,
+      AppRoutes.resultPage,
+      arguments: {'result': result, 'name': _name},
+    );
   }
 
   @override

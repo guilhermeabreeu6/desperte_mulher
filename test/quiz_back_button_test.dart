@@ -14,9 +14,7 @@ void main() {
       await tester.pumpWidget(const App());
       await tester.pumpAndSettle();
 
-      await tester.enterText(find.byType(TextFormField).first, 'teste@teste.com');
-      await tester.enterText(find.byType(TextFormField).last, 'senha123');
-      await tester.tap(find.text('Entrar'));
+      await tester.tap(find.text('Iniciar questionário anonimamente'));
       await tester.pumpAndSettle();
 
       await tester.tap(find.text('Começar Avaliação'));
