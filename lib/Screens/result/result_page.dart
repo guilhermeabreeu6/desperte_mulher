@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../Models/risk_result.dart';
 import '../../common/app_bar_actions.dart';
+import '../../common/app_routes.dart';
 
 class ResultPage extends StatelessWidget {
   const ResultPage({super.key});
@@ -59,6 +60,15 @@ class ResultPage extends StatelessWidget {
             _buildRecommendation(result, color),
             const SizedBox(height: 24),
             _buildDisclaimer(),
+            const SizedBox(height: 16),
+            Center(
+              child: TextButton.icon(
+                onPressed: () =>
+                    Navigator.pushNamed(context, AppRoutes.profilePage),
+                icon: const Icon(Icons.shield_outlined, size: 16),
+                label: const Text('Ver recursos de ajuda'),
+              ),
+            ),
           ],
         ),
       ),

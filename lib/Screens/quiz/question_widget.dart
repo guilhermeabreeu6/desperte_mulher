@@ -81,19 +81,21 @@ class _QuestionWidgetState extends State<QuestionWidget> {
 
   Widget _buildSingleChoice() {
     final selected = _selected.isEmpty ? null : _selected.first;
-    return Column(
-      children: widget.question.answers.map((answer) {
-        return RadioListTile<Answer>(
-          contentPadding: EdgeInsets.zero,
-          dense: true,
-          title: Text(answer.title),
-          value: answer,
-          groupValue: selected,
-          onChanged: (value) {
-            if (value != null) _selectSingle(value);
-          },
-        );
-      }).toList(),
+    return RadioGroup<Answer>(
+      groupValue: selected,
+      onChanged: (Answer? value) {
+        if (value != null) _selectSingle(value);
+      },
+      child: Column(
+        children: widget.question.answers.map((answer) {
+          return RadioListTile<Answer>(
+            contentPadding: EdgeInsets.zero,
+            dense: true,
+            title: Text(answer.title),
+            value: answer,
+          );
+        }).toList(),
+      ),
     );
   }
 

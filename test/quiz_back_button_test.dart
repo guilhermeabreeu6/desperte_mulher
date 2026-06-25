@@ -45,7 +45,15 @@ void main() {
 
       // A primeira opção da primeira questão deve continuar selecionada.
       final radioWidget = tester.widget<RadioListTile<Answer>>(firstRadio);
-      expect(radioWidget.groupValue, equals(radioWidget.value));
+      final radioGroup = tester.widget<RadioGroup<Answer>>(
+        find
+            .ancestor(
+              of: firstRadio,
+              matching: find.byType(RadioGroup<Answer>),
+            )
+            .first,
+      );
+      expect(radioGroup.groupValue, equals(radioWidget.value));
 
       // Avança por todas as demais etapas sem responder mais nada.
       for (var page = 1; page <= 5; page++) {

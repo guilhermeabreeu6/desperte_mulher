@@ -7,7 +7,9 @@ import 'Screens/result/result_page.dart';
 import 'common/app_routes.dart';
 import 'common/theme_notifier.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await loadThemePreference();
   runApp(const App());
 }
 

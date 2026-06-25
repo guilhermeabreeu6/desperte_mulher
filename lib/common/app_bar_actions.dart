@@ -15,11 +15,15 @@ class AppBarActions extends StatelessWidget {
           builder: (_, mode, __) => IconButton(
             tooltip: mode == ThemeMode.dark ? 'Modo claro' : 'Modo escuro',
             icon: Icon(
-              mode == ThemeMode.dark ? Icons.light_mode_outlined : Icons.dark_mode_outlined,
+              mode == ThemeMode.dark
+                  ? Icons.light_mode_outlined
+                  : Icons.dark_mode_outlined,
             ),
             onPressed: () {
-              themeNotifier.value =
+              final next =
                   mode == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
+              themeNotifier.value = next;
+              saveThemePreference(next);
             },
           ),
         ),
