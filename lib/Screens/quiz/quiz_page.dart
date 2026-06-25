@@ -3,6 +3,7 @@ import '../../Models/answer.dart';
 import '../../Models/criterion.dart';
 import '../../Models/quiz_page.dart';
 import '../../common/app_routes.dart';
+import '../../common/app_bar_actions.dart';
 import '../../common/risk_calculator.dart';
 import 'question_widget.dart';
 import 'quiz_server.dart';
@@ -119,6 +120,7 @@ class _QuizPageState extends State<QuizPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Etapa $_currentPage de $_lastPage'),
+        actions: const [AppBarActions()],
       ),
       body: Column(
         children: [
@@ -132,7 +134,10 @@ class _QuizPageState extends State<QuizPage> {
 
   Widget _buildIntro() {
     return Scaffold(
-      appBar: AppBar(title: const Text('Avaliação de Risco')),
+      appBar: AppBar(
+        title: const Text('Avaliação de Risco'),
+        actions: const [AppBarActions()],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(24),
         child: Column(
@@ -189,7 +194,7 @@ class _QuizPageState extends State<QuizPage> {
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 12),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surface,
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.05),

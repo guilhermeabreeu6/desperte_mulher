@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../Models/risk_result.dart';
+import '../../common/app_bar_actions.dart';
 
 class ResultPage extends StatelessWidget {
   const ResultPage({super.key});
@@ -20,12 +21,13 @@ class ResultPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final result = ModalRoute.of(context)!.settings.arguments as RiskResult;
     final color = _colorFor(result.risco);
+    final cs = Theme.of(context).colorScheme;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F3F5),
       appBar: AppBar(
         title: const Text('Resultado da Avaliação'),
         centerTitle: true,
+        actions: const [AppBarActions()],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
@@ -38,18 +40,20 @@ class ResultPage extends StatelessWidget {
               const SizedBox(height: 16),
             _buildRiskCard(result, color),
             const SizedBox(height: 16),
-            _buildRiskLevelBar(result.risco),
+            _buildRiskLevelBar(result.risco, cs),
             const SizedBox(height: 20),
             _buildAxisCard(
               title: 'Nível de Vulnerabilidade',
               value: result.nivelVulnerabilidade,
               score: result.vulnerabilidade,
+              cs: cs,
             ),
             const SizedBox(height: 12),
             _buildAxisCard(
               title: 'Nível de Ameaça',
               value: result.nivelAmeaca,
               score: result.ameaca,
+              cs: cs,
             ),
             const SizedBox(height: 20),
             _buildRecommendation(result, color),
@@ -61,25 +65,25 @@ class ResultPage extends StatelessWidget {
     );
   }
 
-  Widget _buildRiskLevelBar(RiskLevel current) {
+  Widget _buildRiskLevelBar(RiskLevel current, ColorScheme cs) {
     final levels = RiskLevel.values;
     final currentIndex = current.index;
 
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: cs.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.grey.shade200),
+        border: Border.all(color: cs.outlineVariant),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Escala de Risco',
             style: TextStyle(
               fontSize: 12,
-              color: Colors.grey,
+              color: cs.onSurface.withValues(alpha: 0.6),
               fontWeight: FontWeight.w500,
               letterSpacing: 0.3,
             ),
@@ -122,7 +126,9 @@ class ResultPage extends StatelessWidget {
                         fontSize: 9,
                         height: 1.3,
                         fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
-                        color: isActive ? _levelColors[i] : Colors.grey.shade400,
+                        color: isActive
+                            ? _levelColors[i]
+                            : cs.onSurface.withValues(alpha: 0.35),
                       ),
                     ),
                   ],
@@ -227,13 +233,14 @@ class ResultPage extends StatelessWidget {
     required String title,
     required String value,
     required double score,
+    required ColorScheme cs,
   }) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: cs.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.grey.shade200),
+        border: Border.all(color: cs.outlineVariant),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -241,7 +248,13 @@ class ResultPage extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: const TextStyle(color: Colors.grey, fontSize: 13)),
+              Text(
+                title,
+                style: TextStyle(
+                  color: cs.onSurface.withValues(alpha: 0.6),
+                  fontSize: 13,
+                ),
+              ),
               const SizedBox(height: 4),
               Text(
                 value,
@@ -251,7 +264,7 @@ class ResultPage extends StatelessWidget {
           ),
           Text(
             score.toStringAsFixed(2),
-            style: const TextStyle(fontSize: 16, color: Colors.grey),
+            style: TextStyle(fontSize: 16, color: cs.onSurface.withValues(alpha: 0.5)),
           ),
         ],
       ),
