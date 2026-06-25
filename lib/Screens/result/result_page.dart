@@ -35,6 +35,10 @@ class ResultPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            if (result.risco == RiskLevel.alto || result.risco == RiskLevel.extremo)
+              _buildEmergencyBanner(),
+            if (result.risco == RiskLevel.alto || result.risco == RiskLevel.extremo)
+              const SizedBox(height: 16),
             _buildRiskCard(result, color),
             const SizedBox(height: 20),
             _buildAxisCard(
@@ -54,6 +58,42 @@ class ResultPage extends StatelessWidget {
             _buildDisclaimer(),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildEmergencyBanner() {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+      decoration: BoxDecoration(
+        color: const Color(0xFFC62828),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: const Row(
+        children: [
+          Icon(Icons.warning_rounded, color: Colors.white, size: 28),
+          SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Procure ajuda imediatamente',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                  ),
+                ),
+                SizedBox(height: 4),
+                Text(
+                  'Disque 180 — Central da Mulher\nDisque 190 — Polícia Militar',
+                  style: TextStyle(color: Colors.white70, fontSize: 13),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

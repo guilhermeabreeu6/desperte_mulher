@@ -1,19 +1,21 @@
-// Testa se o botão "Voltar" preserva a resposta já selecionada ao navegar
+﻿// Testa se o botão "Voltar" preserva a resposta já selecionada ao navegar
 // de volta para uma etapa anterior do questionário.
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:troca_contexto/Models/answer.dart';
-import 'package:troca_contexto/main.dart';
+import 'package:desperte_mulher/Models/answer.dart';
+import 'package:desperte_mulher/main.dart';
 
 void main() {
   testWidgets(
     'resposta da Etapa 1 é preservada ao voltar da Etapa 2 e avançar de novo',
     (tester) async {
-      await tester.pumpWidget(createMaterialApp());
+      await tester.pumpWidget(const App());
       await tester.pumpAndSettle();
 
+      await tester.enterText(find.byType(TextFormField).first, 'teste@teste.com');
+      await tester.enterText(find.byType(TextFormField).last, 'senha123');
       await tester.tap(find.text('Entrar'));
       await tester.pumpAndSettle();
 

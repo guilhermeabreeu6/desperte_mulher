@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-/// Tela mínima de cadastro. Não persiste dados — existe apenas para que a
-/// navegação a partir do link "Criar nova conta" do login funcione.
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
 
@@ -25,8 +23,7 @@ class RegisterPage extends StatelessWidget {
             const TextField(
               decoration: InputDecoration(
                 labelText: 'Nome completo',
-                border: OutlineInputBorder(),
-                prefixIcon: Icon(Icons.person),
+                prefixIcon: Icon(Icons.person_outline),
               ),
             ),
             const SizedBox(height: 16),
@@ -34,8 +31,7 @@ class RegisterPage extends StatelessWidget {
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
                 labelText: 'E-mail',
-                border: OutlineInputBorder(),
-                prefixIcon: Icon(Icons.email),
+                prefixIcon: Icon(Icons.email_outlined),
               ),
             ),
             const SizedBox(height: 16),
@@ -43,17 +39,24 @@ class RegisterPage extends StatelessWidget {
               obscureText: true,
               decoration: InputDecoration(
                 labelText: 'Senha',
-                border: OutlineInputBorder(),
-                prefixIcon: Icon(Icons.lock),
+                prefixIcon: Icon(Icons.lock_outlined),
               ),
             ),
             const SizedBox(height: 24),
             SizedBox(
               width: double.infinity,
-              height: 48,
+              height: 52,
               child: ElevatedButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Text('Cadastrar'),
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Conta criada com sucesso!'),
+                      backgroundColor: Color(0xFF7B1FA2),
+                    ),
+                  );
+                  Navigator.pop(context);
+                },
+                child: const Text('Cadastrar', style: TextStyle(fontSize: 16)),
               ),
             ),
           ],

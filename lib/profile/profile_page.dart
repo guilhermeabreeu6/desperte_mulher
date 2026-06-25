@@ -1,97 +1,89 @@
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatelessWidget {
-  ProfilePage({super.key});
-
-  late BuildContext profileContext;
+  const ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-
-    profileContext = context;
-
     return Scaffold(
-      appBar: _buildAppBar(),
-      body: _buildBody(),
+      appBar: AppBar(
+        title: const Text('Perfil'),
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          children: [
+            _buildProfileImage(),
+            const SizedBox(height: 16),
+            _buildUserName(),
+            const SizedBox(height: 8),
+            _buildUserEmail(),
+            const SizedBox(height: 32),
+            _buildProfileOptions(context),
+          ],
+        ),
+      ),
       bottomNavigationBar: _buildBottomNavigationBar(),
     );
   }
 
-  AppBar _buildAppBar() {
-    return AppBar(
-      title: const Text('Perfil'),
-      centerTitle: true,
-    );
-  }
-
-  Widget _buildBody() {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        children: [
-          _buildProfileImage(),
-          const SizedBox(height: 16),
-          _buildUserName(),
-          const SizedBox(height: 8),
-          _buildUserEmail(),
-          const SizedBox(height: 32),
-          _buildProfileOptions(),
+  Widget _buildProfileImage() {
+    return Container(
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF7B1FA2).withValues(alpha: 0.2),
+            blurRadius: 16,
+            offset: const Offset(0, 4),
+          ),
         ],
       ),
-    );
-  }
-
-  Widget _buildProfileImage() {
-    return const CircleAvatar(
-      radius: 60,
-      backgroundImage: NetworkImage(
-        'https://i.pravatar.cc/300',
+      child: const CircleAvatar(
+        radius: 60,
+        backgroundImage: NetworkImage('https://i.pravatar.cc/300'),
       ),
     );
   }
 
   Widget _buildUserName() {
     return const Text(
-      'João Silva',
-      style: TextStyle(
-        fontSize: 24,
-        fontWeight: FontWeight.bold,
-      ),
+      'Usuária',
+      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
     );
   }
 
   Widget _buildUserEmail() {
     return const Text(
-      'joao.silva@email.com',
-      style: TextStyle(
-        fontSize: 16,
-        color: Colors.grey,
-      ),
+      'usuario@email.com',
+      style: TextStyle(fontSize: 16, color: Colors.grey),
     );
   }
 
-  Widget _buildProfileOptions() {
+  Widget _buildProfileOptions(BuildContext context) {
     return Column(
       children: [
         _buildOptionTile(
-          icon: Icons.person,
+          icon: Icons.person_outline,
           title: 'Editar Perfil',
-          onTap: _onEditProfilePressed,
+          onTap: () {},
         ),
         _buildOptionTile(
-          icon: Icons.lock,
+          icon: Icons.lock_outline,
           title: 'Alterar Senha',
-          onTap: _onChangePasswordPressed,
+          onTap: () {},
         ),
         _buildOptionTile(
-          icon: Icons.settings,
+          icon: Icons.settings_outlined,
           title: 'Configurações',
-          onTap: _onSettingsPressed,
+          onTap: () {},
         ),
         _buildOptionTile(
           icon: Icons.logout,
           title: 'Sair',
-          onTap: _onLogoutPressed,
+          onTap: () => Navigator.pop(context),
+          isDestructive: true,
         ),
       ],
     );
@@ -101,13 +93,22 @@ class ProfilePage extends StatelessWidget {
     required IconData icon,
     required String title,
     required VoidCallback onTap,
+    bool isDestructive = false,
   }) {
+    final color = isDestructive ? Colors.red.shade400 : const Color(0xFF7B1FA2);
+
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
       child: ListTile(
-        leading: Icon(icon),
-        title: Text(title),
-        trailing: const Icon(Icons.arrow_forward_ios),
+        leading: Icon(icon, color: color),
+        title: Text(
+          title,
+          style: TextStyle(
+            color: isDestructive ? Colors.red.shade400 : null,
+            fontWeight: isDestructive ? FontWeight.w500 : null,
+          ),
+        ),
+        trailing: Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey.shade400),
         onTap: onTap,
       ),
     );
@@ -116,41 +117,13 @@ class ProfilePage extends StatelessWidget {
   Widget _buildBottomNavigationBar() {
     return BottomNavigationBar(
       currentIndex: 1,
-      onTap: _onBottomNavigationItemPressed,
+      selectedItemColor: const Color(0xFF7B1FA2),
+      unselectedItemColor: Colors.grey,
       items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Home',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: 'Perfil',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.settings),
-          label: 'Configurações',
-        ),
+        BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: 'Home'),
+        BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Perfil'),
+        BottomNavigationBarItem(icon: Icon(Icons.settings_outlined), label: 'Configurações'),
       ],
     );
-  }
-
-  void _onBottomNavigationItemPressed(int index) {
-    debugPrint('Item selecionado: $index');
-  }
-
-  void _onEditProfilePressed() {
-    debugPrint('Editar perfil');
-  }
-
-  void _onChangePasswordPressed() {
-    debugPrint('Alterar senha');
-  }
-
-  void _onSettingsPressed() {
-    debugPrint('Abrir configurações');
-  }
-
-  void _onLogoutPressed() {
-    Navigator.pop(profileContext);
   }
 }

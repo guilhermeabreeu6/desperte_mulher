@@ -1,4 +1,4 @@
-// Testa o fluxo do questionário respondendo a primeira opção (tipicamente a
+﻿// Testa o fluxo do questionário respondendo a primeira opção (tipicamente a
 // mais grave) em todas as questões. Resultado esperado pela Matriz de Risco
 // AR PAX: Extremo (100%) — validado também por simulação independente em
 // Python contra o mesmo algoritmo.
@@ -6,18 +6,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:troca_contexto/Models/answer.dart';
-import 'package:troca_contexto/main.dart';
+import 'package:desperte_mulher/Models/answer.dart';
+import 'package:desperte_mulher/main.dart';
 
 void main() {
   testWidgets(
     'respondendo a opção mais grave em tudo resulta em risco Extremo (100%)',
     (tester) async {
-      await tester.pumpWidget(createMaterialApp());
+      await tester.pumpWidget(const App());
       await tester.pumpAndSettle();
 
-      expect(find.text('Login'), findsOneWidget);
+      expect(find.text('Desperte Mulher'), findsOneWidget);
 
+      await tester.enterText(find.byType(TextFormField).first, 'teste@teste.com');
+      await tester.enterText(find.byType(TextFormField).last, 'senha123');
       await tester.tap(find.text('Entrar'));
       await tester.pumpAndSettle();
 
