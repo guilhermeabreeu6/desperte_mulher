@@ -34,66 +34,95 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const SizedBox(height: 48),
-                _buildHeader(),
-                const SizedBox(height: 48),
-                _buildEmailField(),
-                const SizedBox(height: 16),
-                _buildPasswordField(),
-                const SizedBox(height: 28),
-                _buildLoginButton(),
-                const SizedBox(height: 20),
-                _buildRegisterLink(),
-              ],
+      backgroundColor: Colors.white,
+      body: Column(
+        children: [
+          _buildGradientHeader(),
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(24),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const SizedBox(height: 28),
+                    _buildEmailField(),
+                    const SizedBox(height: 16),
+                    _buildPasswordField(),
+                    const SizedBox(height: 28),
+                    _buildLoginButton(),
+                    const SizedBox(height: 20),
+                    _buildRegisterLink(),
+                  ],
+                ),
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }
 
-  Widget _buildHeader() {
-    return Column(
-      children: [
-        Container(
-          width: 84,
-          height: 84,
-          decoration: BoxDecoration(
-            color: const Color(0xFF7B1FA2),
-            borderRadius: BorderRadius.circular(24),
-            boxShadow: [
-              BoxShadow(
-                color: const Color(0xFF7B1FA2).withValues(alpha: 0.35),
-                blurRadius: 16,
-                offset: const Offset(0, 6),
+  Widget _buildGradientHeader() {
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.fromLTRB(
+        24,
+        MediaQuery.of(context).padding.top + 36,
+        24,
+        36,
+      ),
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Color(0xFF4A148C), Color(0xFF7B1FA2)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(32),
+          bottomRight: Radius.circular(32),
+        ),
+      ),
+      child: Column(
+        children: [
+          Container(
+            width: 76,
+            height: 76,
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.15),
+              borderRadius: BorderRadius.circular(22),
+              border: Border.all(
+                color: Colors.white.withValues(alpha: 0.35),
+                width: 1.5,
               ),
-            ],
+            ),
+            child: const Icon(
+              Icons.favorite_rounded,
+              color: Colors.white,
+              size: 40,
+            ),
           ),
-          child: const Icon(Icons.favorite_rounded, color: Colors.white, size: 44),
-        ),
-        const SizedBox(height: 20),
-        const Text(
-          'Desperte Mulher',
-          style: TextStyle(
-            fontSize: 26,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF7B1FA2),
+          const SizedBox(height: 16),
+          const Text(
+            'Desperte Mulher',
+            style: TextStyle(
+              fontSize: 26,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+              letterSpacing: 0.3,
+            ),
           ),
-        ),
-        const SizedBox(height: 8),
-        const Text(
-          'Avaliação de risco — AR PAX/FRIDA',
-          style: TextStyle(fontSize: 13, color: Colors.grey),
-        ),
-      ],
+          const SizedBox(height: 6),
+          Text(
+            'Avaliação de risco — AR PAX/FRIDA',
+            style: TextStyle(
+              fontSize: 13,
+              color: Colors.white.withValues(alpha: 0.8),
+            ),
+          ),
+        ],
+      ),
     );
   }
 

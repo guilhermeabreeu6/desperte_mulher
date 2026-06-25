@@ -4,20 +4,17 @@ import '../../Models/risk_result.dart';
 class ResultPage extends StatelessWidget {
   const ResultPage({super.key});
 
-  Color _colorFor(RiskLevel level) {
-    switch (level) {
-      case RiskLevel.muitoBaixo:
-        return const Color(0xFF2E7D32);
-      case RiskLevel.baixo:
-        return const Color(0xFF66BB6A);
-      case RiskLevel.moderado:
-        return const Color(0xFFFFA000);
-      case RiskLevel.alto:
-        return const Color(0xFFE65100);
-      case RiskLevel.extremo:
-        return const Color(0xFFC62828);
-    }
-  }
+  static const _levelColors = [
+    Color(0xFF2E7D32),
+    Color(0xFF66BB6A),
+    Color(0xFFFFA000),
+    Color(0xFFE65100),
+    Color(0xFFC62828),
+  ];
+
+  static const _levelLabels = ['Muito\nBaixo', 'Baixo', 'Moderado', 'Alto', 'Extremo'];
+
+  Color _colorFor(RiskLevel level) => _levelColors[level.index];
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +37,8 @@ class ResultPage extends StatelessWidget {
             if (result.risco == RiskLevel.alto || result.risco == RiskLevel.extremo)
               const SizedBox(height: 16),
             _buildRiskCard(result, color),
+            const SizedBox(height: 16),
+            _buildRiskLevelBar(result.risco),
             const SizedBox(height: 20),
             _buildAxisCard(
               title: 'Nível de Vulnerabilidade',
@@ -58,6 +57,80 @@ class ResultPage extends StatelessWidget {
             _buildDisclaimer(),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildRiskLevelBar(RiskLevel current) {
+    final levels = RiskLevel.values;
+    final currentIndex = current.index;
+
+    return Container(
+      padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.grey.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Escala de Risco',
+            style: TextStyle(
+              fontSize: 12,
+              color: Colors.grey,
+              fontWeight: FontWeight.w500,
+              letterSpacing: 0.3,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: List.generate(levels.length, (i) {
+              final isActive = i == currentIndex;
+              return Expanded(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (isActive)
+                      Icon(Icons.arrow_drop_down, color: _levelColors[i], size: 22)
+                    else
+                      const SizedBox(height: 22),
+                    Container(
+                      height: isActive ? 20 : 12,
+                      margin: const EdgeInsets.symmetric(horizontal: 2),
+                      decoration: BoxDecoration(
+                        color: _levelColors[i].withValues(alpha: isActive ? 1.0 : 0.25),
+                        borderRadius: BorderRadius.circular(4),
+                        boxShadow: isActive
+                            ? [
+                                BoxShadow(
+                                  color: _levelColors[i].withValues(alpha: 0.45),
+                                  blurRadius: 8,
+                                  offset: const Offset(0, 3),
+                                ),
+                              ]
+                            : null,
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    Text(
+                      _levelLabels[i],
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 9,
+                        height: 1.3,
+                        fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
+                        color: isActive ? _levelColors[i] : Colors.grey.shade400,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }),
+          ),
+        ],
       ),
     );
   }
@@ -102,22 +175,38 @@ class ResultPage extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 28, horizontal: 16),
       decoration: BoxDecoration(
-        color: color,
+        gradient: LinearGradient(
+          colors: [color, color.withValues(alpha: 0.75)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
         borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: color.withValues(alpha: 0.4),
+            blurRadius: 16,
+            offset: const Offset(0, 6),
+          ),
+        ],
       ),
       child: Column(
         children: [
           const Text(
             'Grau de Risco',
-            style: TextStyle(color: Colors.white70, fontSize: 14),
+            style: TextStyle(
+              color: Colors.white70,
+              fontSize: 14,
+              letterSpacing: 0.5,
+            ),
           ),
           const SizedBox(height: 8),
           Text(
             result.risco.label,
             style: const TextStyle(
               color: Colors.white,
-              fontSize: 28,
+              fontSize: 32,
               fontWeight: FontWeight.bold,
+              letterSpacing: 0.5,
             ),
           ),
           const SizedBox(height: 8),
@@ -144,7 +233,7 @@ class ResultPage extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.grey.shade300),
+        border: Border.all(color: Colors.grey.shade200),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -180,9 +269,15 @@ class ResultPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'O que você pode fazer agora',
-            style: TextStyle(fontWeight: FontWeight.bold, color: color),
+          Row(
+            children: [
+              Icon(Icons.lightbulb_outline, color: color, size: 18),
+              const SizedBox(width: 8),
+              Text(
+                'O que você pode fazer agora',
+                style: TextStyle(fontWeight: FontWeight.bold, color: color),
+              ),
+            ],
           ),
           const SizedBox(height: 8),
           Text(result.risco.recomendacao),
